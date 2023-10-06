@@ -1,32 +1,43 @@
 class BankAccount {
-  constructor(owner, number, transactions) {
+  constructor(owner, accountNumber) {
     this.owner = owner
-    this.number = number
-    this.transactions = transactions
+    this.accountNumber = accountNumber
+    this.transactions = []
   }
 
-  deposit (amt) {
-    let t = new this.Transaction(...);
-    this.transactions.push(t);
+  deposit (amount) {
+    let newTransaction = new Transaction(this.payee,amount);
+    this.transactions.push(newTransaction);
   }
 
-  charge(payee, amt) {
-    let t = new Transaction(...);
-    this.transactions.push(t);
+  charge(payee, amount) {
+    let negativeAmount = amount * -1
+    let newTransaction = new Transaction(payee,negativeAmount);
+    this.transactions.push(newTransaction);
   }
-
+//this is the part I need help with 
   balance(){
     //loop through the transactions, and sum up the amounts;
-    // return the sum
+    let newBalance = this.transactions.reduce((a, b) => a + b.amount, 0)
+    // return the balance
+    return newBalance 
+    
   }
 }
 
 class Transaction {
-  constructor(date, payee, amount) {
-    this.date = date
+  constructor(payee, amount) {
     this.payee = payee
     this.amount = amount
-    this.data = new Date()
+    this.date = new Date()
   }
 
 }
+
+let account = new BankAccount("John", "12345")
+account.deposit(100);
+account.charge("Target",40);
+console.log("New Balance:",account.balance()) //should equal 60
+account.charge("Chipotle",10);
+account.deposit(400)
+console.log("New Balance:",account.balance())//should equal 50
