@@ -6,7 +6,7 @@ class BankAccount {
   }
 
   deposit (amount) {
-    let newTransaction = new Transaction(this.payee,amount);
+    let newTransaction = new Transaction(this.owner,amount);
     this.transactions.push(newTransaction);
   }
 
@@ -38,6 +38,7 @@ let account = new BankAccount("John", "12345")
 account.deposit(100);
 account.charge("Target",40);
 console.log("New Balance:",account.balance()) //should equal 60
-account.charge("Chipotle",10);
+account.charge("Chipotle",10)
 account.deposit(400)
 console.log("New Balance:",account.balance())//should equal 50
+console.log(account.transactions)
